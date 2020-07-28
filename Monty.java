@@ -1,3 +1,10 @@
+/*by: jonthan piggott
+* Testing the theory that in the Monty Hall problem, that when a user is presented with three
+* doors and selects one, and another door is removed that doesn't contain the prize, that the
+* probability of winning goes up if the user switches their guess from their initially selected door
+* to the remaining door they originally did not select.
+*/
+
 import java.util.Random;
 public class Monty {
 
@@ -9,60 +16,50 @@ public class Monty {
   int changeLosers = 0;
   Random rand = new Random();
 
-  while (count < 10000){
-   int doorPick = rand.nextInt(3);
-   int prizeDoor = rand.nextInt(3);
-
-    // System.out.println("Door set to " + doorPick);
-    // System.out.println("Prize set to " + prizeDoor);
+  while (count < 100000){ //number of times you wish to test guess
+   int doorPick = rand.nextInt(3); //set the "contestant" guess to a door either 0,1,2 
+   int prizeDoor = rand.nextInt(3); //set the "prize" door to either 0,1,2
 
    if (doorPick == prizeDoor){
+    //tracking the amount of first choice correct guesses without ever changing doors
     wins++;
    } else {
     losers++;
    }
 
    if (doorPick != 0 && prizeDoor != 0){
-   // System.out.println("Door zero Removed");
+   // multiple if structure to 'remove' a door that isn't the prize door or contestant door and switch the contestant pick to the other remaining door option
     if (doorPick == 1){
      doorPick = 2;
-    // System.out.println("Door set to 2");
     } else {
      doorPick = 1;
-    // System.out.println("Door set to 1");
     }
    } else if (doorPick != 1 && prizeDoor != 1) {
-   // System.out.println("Door one Removed");
     if (doorPick == 0){
      doorPick = 2;
-    // System.out.println("Door set to 2");
     } else {
      doorPick = 0;
-    // System.out.println("Door set to 0");
     }
    } else {
-   // System.out.println("Door two Removed");
     if (doorPick == 1){
      doorPick = 0;
-   //  System.out.println("Door set to 0");
     } else {
      doorPick = 1;
-   //  System.out.println("Door set to 1");
     }
    }
 
    if (doorPick == prizeDoor){
+     //count the number of wins by the 'contestant' when their door pick always changes
      changeWins++;
    } else {
      changeLosers++;
    }
 
    count++;
-   // System.out.println("");
   }
 
-   System.out.println("Wins: " + wins);
-   System.out.println("Losers: " + losers);
+   System.out.println("First Guess Wins: " + wins);
+   System.out.println("First Guess Losers: " + losers);
    System.out.println("Change Wins: " + changeWins);
    System.out.println("Change Losers: " + changeLosers);
 
